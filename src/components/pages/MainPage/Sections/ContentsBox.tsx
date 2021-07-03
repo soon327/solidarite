@@ -1,9 +1,9 @@
 import React, { useEffect, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import server from '../../../../api';
 import { useInfiniteScroll } from '../../../../utils/useInfiniteScroll';
-import { Data } from '../';
+import { Data, LocationStateType } from '../';
 
 interface ContentsBoxProps {
   tab: 'a' | 'b';
@@ -12,10 +12,17 @@ interface ContentsBoxProps {
   search: string | null;
   data: Data[];
   setData: (data: Data[]) => void;
+  locationState: LocationStateType | null;
 }
 
-export default function ContentsBox({ tab, page, setPage, search, data, setData }: ContentsBoxProps): JSX.Element {
+export default function ContentsBox({ tab, page, setPage, search, data, setData, locationState }: ContentsBoxProps): JSX.Element {
+  const history = useHistory();
+
   useEffect(() => {
+    if (locationState) {
+      window.scrollTo(0, locationState.scroll);
+      return;
+    }
     getData();
   }, [tab, page, search]);
 
@@ -30,7 +37,12 @@ export default function ContentsBox({ tab, page, setPage, search, data, setData 
   // infinite scroll callback
   const onIntersect: IntersectionObserverCallback = useCallback(
     ([{ isIntersecting, target }], observer) => {
+      console.log('infinite----');
       if (isIntersecting) {
+        // location.state값이 있으면 값을 초기화해서 getData가 실행되도록 한다.
+        if (locationState) {
+          history.replace('', null);
+        }
         setPage((page: number) => page + 1);
         observer.unobserve(target);
       }
@@ -40,18 +52,28 @@ export default function ContentsBox({ tab, page, setPage, search, data, setData 
 
   const [setTarget] = useInfiniteScroll(onIntersect);
 
+  const handleDetail = (post: Data) => {
+    history.push(`/${post.type}?id=${post.id}`, {
+      tab,
+      page,
+      search,
+      data,
+      scroll: window.scrollY,
+    });
+  };
+
   return (
     <ul>
       {data.map((post, idx: number) => {
         return (
-          <POST_LIST key={idx} ref={idx === data.length - 1 ? setTarget : null}>
-            <Link to={`/${post.type}?id=${post.id}`}>
-              <h3>
-                <ID>{post.id}. </ID>
-                {post.title}
-              </h3>
-              <CONTENT>{post.content}</CONTENT>
-            </Link>
+          <POST_LIST key={idx} ref={idx === data.length - 1 ? setTarget : null} onClick={() => handleDetail(post)}>
+            {/* <Link to={`/${post.type}?id=${post.id}`}> */}
+            <h3>
+              <ID>{post.id}. </ID>
+              {post.title}
+            </h3>
+            <CONTENT>{post.content}</CONTENT>
+            {/* </Link> */}
           </POST_LIST>
         );
       })}

@@ -1,18 +1,34 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { useHistory } from 'react-router';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
-import { Data } from '../';
+import { Data, LocationStateType } from '../';
 
 interface SearchBoxProps {
   setSearch: (search: string) => void;
   setData: (data: Data[]) => void;
+  setPage: (page: number) => void;
+  locationState: LocationStateType | null;
 }
-export default function SearchBox({ setSearch, setData }: SearchBoxProps): JSX.Element {
+export default function SearchBox({ setSearch, setData, setPage, locationState }: SearchBoxProps): JSX.Element {
+  const history = useHistory();
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (locationState) {
+      if (inputRef.current) {
+        inputRef.current.value = locationState.search;
+      }
+    }
+  }, []);
 
   const changeInput = () => {
     if (inputRef.current) {
+      if (locationState) {
+        history.replace('', null);
+      }
+      setPage(0);
       setData([]);
       setSearch(inputRef.current.value);
     }
