@@ -13,7 +13,7 @@ const GlobalStyles = createGlobalStyle`
     body{
       margin: 0;
       padding:0;
-      font-size: 1rem; 
+      font-size: 14px; 
       font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Roboto","Oxygen","Ubuntu","Cantarell","Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
     }
     

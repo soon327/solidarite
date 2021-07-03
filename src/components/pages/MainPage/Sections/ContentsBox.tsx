@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, SetStateAction } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import server from '../../../../api';
 import styled from 'styled-components';
 import { useInfiniteScroll } from '../../../../utils/useInfiniteScroll';
@@ -21,6 +21,7 @@ export default function ContentsBox({ tab, page, setPage, search, data, setData 
   // 서버에 data요청
   const getData = async () => {
     const URL = search === '' ? `/${tab}-posts?page=${page}` : `/${tab}-posts?page=${page}&search=${search}`;
+    console.log('URL::::::', URL);
     const result = await server.get(URL);
     setData([...data, ...result.data]);
   };
@@ -57,6 +58,10 @@ export default function ContentsBox({ tab, page, setPage, search, data, setData 
 
 const POST_LIST = styled.li`
   margin-bottom: 20px;
+  cursor: pointer;
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.grey_hover};
+  }
 `;
 const ID = styled.span`
   color: ${({ theme }) => theme.colors.blue};

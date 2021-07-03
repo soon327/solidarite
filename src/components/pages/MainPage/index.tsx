@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import SearchBox from './Sections/SearchBox';
 import PostTab from './Sections/PostTab';
@@ -22,7 +22,7 @@ export default function Mainpage(): JSX.Element {
     <SECTION>
       <HEADER>게시물을 검색해보세요</HEADER>
       <main>
-        <SearchBox setSearch={setSearch} />
+        <SearchBox setSearch={setSearch} setData={setData} />
         <article>
           <PostTab tab={tab} setTab={setTab} setData={setData} setPage={setPage} />
           <ContentsBox tab={tab} page={page} setPage={setPage} search={search} data={data} setData={setData} />
