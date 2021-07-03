@@ -19,6 +19,7 @@ export interface LocationStateType {
   search: string;
   data: Data[];
   scroll: number;
+  id: string;
 }
 export default function Mainpage({ location }: RouteComponentProps<{}, {}, LocationStateType | null>): JSX.Element {
   const [tab, setTab] = useState<'a' | 'b'>('a');
@@ -41,7 +42,7 @@ export default function Mainpage({ location }: RouteComponentProps<{}, {}, Locat
       <main>
         <SearchBox setSearch={setSearch} setData={setData} setPage={setPage} locationState={location.state} />
         <article>
-          <PostTab tab={tab} setTab={setTab} setData={setData} setPage={setPage} />
+          <PostTab tab={tab} setTab={setTab} setData={setData} setPage={setPage} locationState={location.state} />
           <ContentsBox
             tab={tab}
             page={page}

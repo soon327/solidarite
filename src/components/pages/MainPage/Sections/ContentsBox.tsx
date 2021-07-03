@@ -30,8 +30,12 @@ export default function ContentsBox({ tab, page, setPage, search, data, setData,
   const getData = async () => {
     const URL = search === '' ? `/${tab}-posts?page=${page}` : `/${tab}-posts?page=${page}&search=${search}`;
     console.log('URL::::::', URL);
-    const result = await server.get(URL);
-    setData([...data, ...result.data]);
+    try {
+      const result = await server.get(URL);
+      setData([...data, ...result.data]);
+    } catch (error) {
+      console.log('getData error', error);
+    }
   };
 
   // infinite scroll callback
@@ -59,6 +63,7 @@ export default function ContentsBox({ tab, page, setPage, search, data, setData,
       search,
       data,
       scroll: window.scrollY,
+      id: post.id,
     });
   };
 

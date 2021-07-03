@@ -1,19 +1,18 @@
 import React, { useEffect } from 'react';
 import { RouteComponentProps, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import ContentBox from './Sections/ContentBox';
+import DetailContent from './Sections/DetailContent';
+import { LocationStateType } from '../MainPage';
 
-export default function DetailPage(props: RouteComponentProps) {
+export default function DetailPage(props: RouteComponentProps<{}, {}, LocationStateType | null>) {
   const history = useHistory();
-
-  useEffect(() => console.log('props::::', props));
 
   const handleBackButton = () => {
     history.push('/', props.location.state);
   };
   return (
     <MAIN>
-      <ContentBox />
+      <DetailContent locationState={props.location.state} />
       <footer>
         <button onClick={handleBackButton}>뒤로가기</button>
       </footer>
