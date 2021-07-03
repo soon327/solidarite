@@ -1,6 +1,7 @@
 import React, { useEffect, useCallback } from 'react';
-import server from '../../../../api';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import server from '../../../../api';
 import { useInfiniteScroll } from '../../../../utils/useInfiniteScroll';
 import { Data } from '../';
 
@@ -44,11 +45,13 @@ export default function ContentsBox({ tab, page, setPage, search, data, setData 
       {data.map((post, idx: number) => {
         return (
           <POST_LIST key={idx} ref={idx === data.length - 1 ? setTarget : null}>
-            <h3>
-              <ID>{post.id}. </ID>
-              {post.title}
-            </h3>
-            <CONTENT>{post.content}</CONTENT>
+            <Link to={`/${post.type}?id=${post.id}`}>
+              <h3>
+                <ID>{post.id}. </ID>
+                {post.title}
+              </h3>
+              <CONTENT>{post.content}</CONTENT>
+            </Link>
           </POST_LIST>
         );
       })}
