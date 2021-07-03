@@ -1,25 +1,19 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, SetStateAction } from 'react';
 import server from '../../../../api';
 import styled from 'styled-components';
 import { useInfiniteScroll } from '../../../../utils/useInfiniteScroll';
-
-interface Data {
-  'id': string;
-  'title': string;
-  'content': string;
-  'type': 'a' | 'b';
-  'createdAt': string;
-}
+import { Data } from '../';
 
 interface ContentsBoxProps {
   tab: 'a' | 'b';
   page: number;
   setPage: (page: any) => void;
   search: string | null;
+  data: Data[];
+  setData: (data: Data[]) => void;
 }
-export default function ContentsBox({ tab, page, setPage, search }: ContentsBoxProps): JSX.Element {
-  const [data, setData] = useState<Data[]>([]);
 
+export default function ContentsBox({ tab, page, setPage, search, data, setData }: ContentsBoxProps): JSX.Element {
   useEffect(() => {
     getData();
   }, [tab, page, search]);
