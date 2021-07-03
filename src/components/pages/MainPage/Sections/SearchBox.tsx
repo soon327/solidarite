@@ -11,6 +11,8 @@ interface SearchBoxProps {
   setPage: (page: number) => void;
   locationState: LocationStateType | null;
 }
+let debounce: ReturnType<typeof setTimeout> | null = null;
+
 export default function SearchBox({ setSearch, setData, setPage, locationState }: SearchBoxProps): JSX.Element {
   const history = useHistory();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -21,21 +23,35 @@ export default function SearchBox({ setSearch, setData, setPage, locationState }
         inputRef.current.value = locationState.search;
       }
     }
-  }, []);
+  }, [locationState]);
 
+  // debounce 150ms
   const changeInput = () => {
-    if (inputRef.current) {
+    if (debounce) {
+      clearTimeout(debounce);
+    }
+
+    debounce = setTimeout(() => {
       if (locationState) {
         history.replace('', null);
       }
       setPage(0);
       setData([]);
-      setSearch(inputRef.current.value);
+      if (inputRef.current) {
+        setSearch(inputRef.current.value);
+      }
+    }, 150);
+  };
+
+  const handleIcon = () => {
+    if (inputRef.current) {
+      inputRef.current.focus();
     }
   };
+
   return (
     <SEARCH_BOX>
-      <SEARCH_ICON icon={faSearch} />
+      <SEARCH_ICON icon={faSearch} onClick={handleIcon} />
       <SEARCH_INPUT type="search" placeholder="검색어를 입력하세요" onChange={changeInput} ref={inputRef} />
     </SEARCH_BOX>
   );
