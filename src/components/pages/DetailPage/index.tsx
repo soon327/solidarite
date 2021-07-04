@@ -11,6 +11,7 @@ export default function DetailPage(props: RouteComponentProps<{}, {}, LocationSt
   const handleBackButton = () => {
     history.push('/', props.location.state);
   };
+
   return (
     <MAIN>
       <DetailContent locationState={props.location.state} load={load} setLoad={setLoad} />

@@ -3,8 +3,6 @@ const colors = {
   grey_hover: '#F3F4F5',
   grey_border: '#E3E7EB',
   blue: '#3B82F6',
-  black_header: '#000000D9',
-  black_p: '#1A1311',
 };
 
 const fontSizes = {

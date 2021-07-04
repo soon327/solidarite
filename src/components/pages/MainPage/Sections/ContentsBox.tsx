@@ -30,10 +30,12 @@ export default function ContentsBox({ tab, page, setPage, search, data, setData,
   // 서버에 data요청
   const getData = async () => {
     const URL = search === '' ? `/${tab}-posts?page=${page}` : `/${tab}-posts?page=${page}&search=${search}`;
-    console.log('URL::::::', URL);
     try {
       const result = await server.get(URL);
-      setData([...data, ...result.data]);
+      // 검색결과가 달라졌을때만 data 추가
+      if (JSON.stringify(data) !== JSON.stringify(result.data)) {
+        setData([...data, ...result.data]);
+      }
     } catch (error) {
       console.log('getData error', error);
     }
@@ -93,10 +95,10 @@ const UL = styled.ul`
 
 const POST_LIST = styled.li`
   cursor: pointer;
+  padding: 1.25rem;
   &:hover {
     background-color: ${({ theme }) => theme.colors.grey_hover};
   }
-  padding: 1.25rem;
 `;
 
 const POST_TITLE = styled.h3`

@@ -15,15 +15,12 @@ let debounce: ReturnType<typeof setTimeout> | null = null;
 
 export default function SearchBox({ setSearch, setData, setPage, locationState }: SearchBoxProps): JSX.Element {
   const history = useHistory();
-
   const [focus, setFocus] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (locationState) {
-      if (inputRef.current) {
-        inputRef.current.value = locationState.search;
-      }
+    if (locationState && inputRef.current) {
+      inputRef.current.value = locationState.search;
     }
   }, [locationState]);
 
@@ -52,7 +49,6 @@ export default function SearchBox({ setSearch, setData, setPage, locationState }
   };
 
   const handleFocusInput = (event: React.FocusEvent<HTMLInputElement>) => {
-    console.log('event:::', event.type);
     if (event.type === 'focus') {
       setFocus(true);
     } else if (event.type === 'blur') {
