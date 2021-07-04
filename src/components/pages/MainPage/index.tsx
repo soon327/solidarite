@@ -28,13 +28,14 @@ export default function Mainpage({ location }: RouteComponentProps<{}, {}, Locat
   const [data, setData] = useState<Data[]>([]);
 
   useEffect(() => {
+    // 디테일페이지에서 뒤로가기버튼 눌렀을 시, 저장된 상태적용
     if (location.state) {
       setTab(location.state.tab);
       setPage(location.state.page);
       setSearch(location.state.search);
       setData(location.state.data);
     }
-  }, []);
+  }, [location.state]);
 
   return (
     <SECTION>
@@ -63,7 +64,7 @@ const SECTION = styled.section`
   margin-right: auto;
   width: 1000px;
   max-width: 100%;
-  padding: 2.5rem;
+  padding: 2.5rem 4.5rem;
 `;
 
 const HEADER = styled.header`

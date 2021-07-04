@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 import { Data, LocationStateType } from '../../MainPage';
 import server from '../../../../api';
 
@@ -25,13 +26,26 @@ export default function DetailContent({ locationState }: DetailContentProps) {
   return (
     <>
       {detailData && (
-        <article>
+        <DETAIL_BOX>
           <header>
-            <h2>{detailData.title}</h2>
+            <DETAIL_TITLE>{detailData.title}</DETAIL_TITLE>
           </header>
-          <div>{detailData.content}</div>
-        </article>
+          <p>{detailData.content}</p>
+        </DETAIL_BOX>
       )}
     </>
   );
 }
+
+const DETAIL_BOX = styled.article`
+  border: 1px solid ${({ theme }) => theme.colors.grey_border};
+  padding: 2.5rem;
+  margin-bottom: 1rem;
+`;
+
+const DETAIL_TITLE = styled.h2`
+  text-align: center;
+  margin-bottom: 2.5rem;
+  font-size: ${({ theme }) => theme.fontSizes.title};
+  line-height: 2.5rem;
+`;

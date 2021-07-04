@@ -82,7 +82,7 @@ const SEARCH_BOX = styled.article<{ focus: boolean }>`
   border: 1px solid ${({ theme }) => theme.colors.grey_border};
   border-radius: 0.25rem;
   width: 24rem;
-  height: 3rem;
+  height: 3.5rem;
   padding: 1rem;
   margin-left: auto;
   margin-right: auto;

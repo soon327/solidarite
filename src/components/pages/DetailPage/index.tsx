@@ -14,15 +14,28 @@ export default function DetailPage(props: RouteComponentProps<{}, {}, LocationSt
     <MAIN>
       <DetailContent locationState={props.location.state} />
       <footer>
-        <button onClick={handleBackButton}>뒤로가기</button>
+        <BACK_BUTTON onClick={handleBackButton}>뒤로가기</BACK_BUTTON>
       </footer>
     </MAIN>
   );
 }
 
 const MAIN = styled.main`
-  border: 1px solid;
   height: 70vh;
-  margin: 8vw;
-  padding: 35px;
+  margin: 5rem auto;
+  padding: 2.5rem 4.5rem;
+  width: 1000px;
+  max-width: 100%;
+`;
+
+const BACK_BUTTON = styled.button`
+  all: unset;
+  cursor: pointer;
+  padding: 0.75rem 2rem;
+  border-radius: 0.375rem;
+  color: white;
+  background-color: ${({ theme }) => theme.colors.blue};
+  :hover {
+    background-color: rgb(96, 165, 250);
+  }
 `;

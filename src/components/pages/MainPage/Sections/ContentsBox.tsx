@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import server from '../../../../api';
 import { useInfiniteScroll } from '../../../../utils/useInfiniteScroll';
@@ -23,8 +23,9 @@ export default function ContentsBox({ tab, page, setPage, search, data, setData,
       window.scrollTo(0, locationState.scroll);
       return;
     }
+    // location.state가 초기화 됐을때만 서버에 data 요청
     getData();
-  }, [tab, page, search]);
+  }, [tab, page, search, locationState]);
 
   // 서버에 data요청
   const getData = async () => {
@@ -41,7 +42,6 @@ export default function ContentsBox({ tab, page, setPage, search, data, setData,
   // infinite scroll callback
   const onIntersect: IntersectionObserverCallback = useCallback(
     ([{ isIntersecting, target }], observer) => {
-      console.log('infinite----');
       if (isIntersecting) {
         // location.state값이 있으면 값을 초기화해서 getData가 실행되도록 한다.
         if (locationState) {
@@ -72,13 +72,11 @@ export default function ContentsBox({ tab, page, setPage, search, data, setData,
       {data.map((post, idx: number) => {
         return (
           <POST_LIST key={idx} ref={idx === data.length - 1 ? setTarget : null} onClick={() => handleDetail(post)}>
-            {/* <Link to={`/${post.type}?id=${post.id}`}> */}
-            <h3>
+            <POST_TITLE>
               <ID>{post.id}. </ID>
               {post.title}
-            </h3>
+            </POST_TITLE>
             <CONTENT>{post.content}</CONTENT>
-            {/* </Link> */}
           </POST_LIST>
         );
       })}
@@ -86,23 +84,34 @@ export default function ContentsBox({ tab, page, setPage, search, data, setData,
   );
 }
 
-const UL = styled.ul``;
+const UL = styled.ul`
+  border: 1px solid ${({ theme }) => theme.colors.grey_border};
+  border-radius: 0.375rem;
+  padding: 1.25rem;
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+`;
+
 const POST_LIST = styled.li`
-  margin-bottom: 20px;
   cursor: pointer;
   &:hover {
     background-color: ${({ theme }) => theme.colors.grey_hover};
   }
+  padding: 1.25rem;
 `;
+
+const POST_TITLE = styled.h3`
+  font-size: ${({ theme }) => theme.fontSizes.lg};
+  line-height: 1.75rem;
+  font-weight: 500;
+`;
+
 const ID = styled.span`
   color: ${({ theme }) => theme.colors.blue};
 `;
+
 const CONTENT = styled.p`
   display: -webkit-box;
   overflow: hidden;
-  vertical-align: top;
-  text-overflow: ellipsis;
-  word-break: break-all;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
 `;

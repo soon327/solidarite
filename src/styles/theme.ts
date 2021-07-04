@@ -7,13 +7,11 @@ const colors = {
   black_p: '#1A1311',
 };
 
-const pixelToRem = (size: number) => `${size / 14}rem`;
-
 const fontSizes = {
-  base: pixelToRem(14),
-  lg: pixelToRem(15.75),
-  subtitle: pixelToRem(21),
-  title: pixelToRem(31.5),
+  base: '1rem',
+  lg: '1.125rem',
+  subtitle: '1.5rem',
+  title: '2.25rem',
 };
 
 const theme = {
