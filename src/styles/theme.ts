@@ -1,5 +1,5 @@
 const colors = {
-  grey: '#6b7280',
+  grey: '#9ca3ae',
   grey_hover: '#F3F4F5',
   grey_border: '#E3E7EB',
   blue: '#3B82F6',

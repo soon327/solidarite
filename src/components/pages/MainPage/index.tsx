@@ -59,10 +59,15 @@ export default function Mainpage({ location }: RouteComponentProps<{}, {}, Locat
 }
 
 const SECTION = styled.section`
-  margin: 0px 10vw;
-  padding: 35px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 1000px;
+  max-width: 100%;
+  padding: 2.5rem;
 `;
 
 const HEADER = styled.header`
+  font-size: ${({ theme }) => theme.fontSizes.title};
   text-align: center;
+  margin: 2.5rem 0;
 `;

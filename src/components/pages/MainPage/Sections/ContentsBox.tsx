@@ -68,7 +68,7 @@ export default function ContentsBox({ tab, page, setPage, search, data, setData,
   };
 
   return (
-    <ul>
+    <UL>
       {data.map((post, idx: number) => {
         return (
           <POST_LIST key={idx} ref={idx === data.length - 1 ? setTarget : null} onClick={() => handleDetail(post)}>
@@ -82,10 +82,11 @@ export default function ContentsBox({ tab, page, setPage, search, data, setData,
           </POST_LIST>
         );
       })}
-    </ul>
+    </UL>
   );
 }
 
+const UL = styled.ul``;
 const POST_LIST = styled.li`
   margin-bottom: 20px;
   cursor: pointer;

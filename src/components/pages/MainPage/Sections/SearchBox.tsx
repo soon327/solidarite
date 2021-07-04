@@ -97,7 +97,8 @@ const SEARCH_BOX = styled.article<{ focus: boolean }>`
 const SEARCH_ICON = styled(FontAwesomeIcon)`
   flex: 1;
   font-size: 1rem;
-  color: grey;
+  margin-right: 0.5rem;
+  color: ${({ theme }) => theme.colors.grey};
 `;
 
 const SEARCH_INPUT = styled.input`
@@ -105,4 +106,7 @@ const SEARCH_INPUT = styled.input`
   border: unset;
   outline: unset;
   font-size: 1rem;
+  ::placeholder {
+    color: ${({ theme }) => theme.colors.grey};
+  }
 `;
