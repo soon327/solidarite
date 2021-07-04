@@ -25,7 +25,7 @@ export default function ContentsBox({ tab, page, setPage, search, data, setData,
     }
     // location.state가 초기화 됐을때만 서버에 data 요청
     getData();
-  }, [tab, page, search, locationState]);
+  }, [tab, page, search]);
 
   // 서버에 data요청
   const getData = async () => {
@@ -102,7 +102,6 @@ const POST_LIST = styled.li`
 const POST_TITLE = styled.h3`
   font-size: ${({ theme }) => theme.fontSizes.lg};
   line-height: 1.75rem;
-  font-weight: 500;
 `;
 
 const ID = styled.span`

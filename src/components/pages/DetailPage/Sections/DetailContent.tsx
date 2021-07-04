@@ -5,9 +5,11 @@ import server from '../../../../api';
 
 interface DetailContentProps {
   locationState: LocationStateType | null;
+  load: boolean;
+  setLoad: (load: boolean) => void;
 }
 
-export default function DetailContent({ locationState }: DetailContentProps) {
+export default function DetailContent({ locationState, load, setLoad }: DetailContentProps) {
   const [detailData, setDetailData] = useState<Data | null>(null);
 
   useEffect(() => {
@@ -18,6 +20,7 @@ export default function DetailContent({ locationState }: DetailContentProps) {
     try {
       const result = await server.get(`/${locationState?.tab}-posts/${locationState?.id}`);
       setDetailData(result.data);
+      setLoad(true);
     } catch (error) {
       console.log('getDetailData error', error);
     }
@@ -25,7 +28,7 @@ export default function DetailContent({ locationState }: DetailContentProps) {
 
   return (
     <>
-      {detailData && (
+      {detailData && load && (
         <DETAIL_BOX>
           <header>
             <DETAIL_TITLE>{detailData.title}</DETAIL_TITLE>

@@ -64,7 +64,7 @@ const SECTION = styled.section`
   margin-right: auto;
   width: 1000px;
   max-width: 100%;
-  padding: 2.5rem 4.5rem;
+  padding: 5rem;
 `;
 
 const HEADER = styled.header`
